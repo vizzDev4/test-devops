@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+     environment {
+        EC2_USER = 'ec2-user' 
+        EC2_HOST = 'ec2-18-246-219-6.us-west-2.compute.amazonaws.com'
+    }
     stages {
       
         //+------------------------------------------------------------------+
@@ -43,14 +46,11 @@ pipeline {
         stage('EC2:Push') {
             steps {
                 sshagent(['18.246.219.6']) { 
-                    // Copy folder to the EC2 instance
                     sh '''
                     echo Connection successful!
                     ls -la 
-                    cd /var/www/html
-                    mkdir test.html
-                    echo html paste done
                     '''
+                    sh "ssh -o StrictHostKeyChecking=no ${EC2_USER}@${EC2_HOST} 'touch testk.html'"
                 }
             }
         }
