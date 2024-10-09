@@ -30,6 +30,7 @@ pipeline {
         stage('test') {
             steps {
                     sh '''
+                        ls -la
                         test -f dist/index.html
                     '''
             }
