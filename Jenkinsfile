@@ -46,6 +46,10 @@ pipeline {
                     // Copy folder to the EC2 instance
                     sh '''
                     echo Connection successful!
+                    ls -la 
+                    cd /var/www/html
+                    mkdir test.html
+                    echo html paste done
                     '''
                 }
             }
