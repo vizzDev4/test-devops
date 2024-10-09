@@ -1,7 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('build:dev') {
+
+        //+------------------------------------------------------------------+
+        //| Building Stage				                                     |
+        //+------------------------------------------------------------------+
+        stage('build') {
             agent {
                 docker {
                     image  'node'
@@ -15,9 +19,28 @@ pipeline {
                         node --version
                         npm --version
                         npm ci
+                        mkdir dist -p
+                        touch dist/index.html
                         ls -la
                     '''
             }
         }
+        //+------------------------------------------------------------------+
+        //| Testing Stage				                                     |
+        //+------------------------------------------------------------------+
+        stage('test') {
+            steps {
+                    sh '''
+                        test -f dist/index.html
+                    '''
+            }
+        }
+        //+------------------------------------------------------------------+
+        //| PushToAWS Stage				                                     |
+        //+------------------------------------------------------------------+
     }
 }
+
+
+Docker container -> Remove after done
+Genkin container -> will not remove
