@@ -43,7 +43,7 @@ pipeline {
         stage('EC2:Push') {
             steps {
                 sshagent(credentials : ['ec2-user (ec2user)']){
-                sh "echo "hi""
+                sh 'pwd'
                 }
             }
         }
