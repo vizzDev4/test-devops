@@ -42,11 +42,8 @@ pipeline {
         //+------------------------------------------------------------------+
         stage('EC2:Push') {
             steps {
-                sshagent(['ec2-user (ec2user)']) { 
-                    // Copy folder to the EC2 instance
-                    sh '''
-                    echo "Connection successful!"
-                    '''
+                sshagent(credentials : ['ec2-user (ec2user)']){
+                sh "echo "hi""
                 }
             }
         }
