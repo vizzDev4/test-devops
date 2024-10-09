@@ -1,6 +1,8 @@
 pipeline {
     agent any
+    
     stages {
+      
         //+------------------------------------------------------------------+
         //| Building Stage				                                    |
         //+------------------------------------------------------------------+
@@ -38,5 +40,20 @@ pipeline {
         //+------------------------------------------------------------------+
         //| PushToAWS Stage				                                     |
         //+------------------------------------------------------------------+
+        stages {
+        stage('EC2:Push') {
+            steps {
+                sshagent(['ec2-user (ec2user)']) { 
+                    // Copy folder to the EC2 instance
+                    sh '''
+                    echo "Connection successful!"
+                    '''
+                }
+            }
+        }
+    }
     }
 }
+
+
+// we can run these in parrallel too ... by adding parallel { stages }
